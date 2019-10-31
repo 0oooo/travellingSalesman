@@ -10,11 +10,10 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
- * This class takes as an input a text file and parse its info to create: 
- * - a City (one per line) with an id, a X and a Y
- * - a Road (takes 2 cities and calculate the distance between them)
- * - a Map that stores an array of all the cities and of all the possible roads
- * (each city is linked to all the other ones)
+ * This class takes as an input a text file
+ * Generates an array of City
+ * Generates an array of vertex 
+ * (each city is linked to all the other ones + distance to each other city)
  */
 
 public class ProblemParser {
@@ -78,13 +77,8 @@ public class ProblemParser {
 		return cityData;
 	}
 	
-	public Map getMap() {
-		if(!map.isEmpty()){
-			return map; 
-		}
-		return null; 
-	}
 	
+	//TODO delete me
 	public void testParsing() {
 		City[] cities = map.getCities(); 
 		for(City city : cities) {

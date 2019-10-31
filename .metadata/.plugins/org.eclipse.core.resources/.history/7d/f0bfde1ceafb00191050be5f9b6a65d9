@@ -1,10 +1,5 @@
 package travellingSalesman;
 
-/**
- * This class is road
- * It contains two cities and the distance between those 2 cities.  
- */
-
 public class Road {
 	
 	Object[] road;

@@ -1,10 +1,5 @@
 package travellingSalesman;
 
-/**
- * This class is a map. 
- * It contains an array of all the cities and an array of all the roads. 
- */
-
 public class Map {
 	
 	City[] cities; 
@@ -31,27 +26,6 @@ public class Map {
 			return roads;
 		}
 		return null; 
-	}
-	
-	public boolean isEmpty() {
-		if (cities.length > 0 || roads.length > 0) {
-			return false; 
-		}
-		return true; 
-	}
-	
-	public boolean hasCities() {
-		if (cities.length > 0) {
-			return false; 
-		}
-		return true; 
-	}
-	
-	public boolean hasRoads() {
-		if (roads.length > 0) {
-			return false; 
-		}
-		return true; 
 	}
 	
 	public void addCityToList(City city) {

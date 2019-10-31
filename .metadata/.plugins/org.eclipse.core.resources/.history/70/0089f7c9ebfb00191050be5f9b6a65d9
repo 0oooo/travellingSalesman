@@ -31,7 +31,7 @@ public class City {
 		int x1 = this.getX(); 
 		int y1 = this.getY(); 
 		int x2 = city2.getX(); 
-		int y2 = city2.getY();
+		int y2 = city2.getX();
 		double side1, side2, side3; 
 		
 		side1 = x1 > x2 ? x1 - x2 : x2 - x1; 
