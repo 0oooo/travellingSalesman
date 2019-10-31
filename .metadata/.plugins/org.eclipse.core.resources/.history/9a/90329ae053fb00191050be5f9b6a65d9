@@ -1,0 +1,123 @@
+package travellingSalesman;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
+/**
+ * This class takes as an input a text file
+ * Generates an array of City
+ * Generates an array of vertex 
+ * (each city is linked to all the other ones + distance to each other city)
+ */
+
+public class ProblemParser {
+	
+	int numberOfCities; 
+	int numberOfRoads = 0; 
+	City[] cities; 
+	Number[][] roads;
+	
+	ProblemParser(String path) {
+		try {
+			// To know how long is our array of city, 
+			// we start with counting the number of lines of a problem
+			File problemFile = new File(path);
+			long lineCount = Files.lines(Paths.get(problemFile.getName())).count();
+			cities = new City[(int)lineCount];
+			numberOfCities = (int) lineCount; 
+			
+			// Then we parse each line to become a City with its id, x, y
+			BufferedReader br = new BufferedReader(new FileReader(problemFile));
+			String line;
+			int citiesIndex = 0; 
+			while ((line = br.readLine()) != null)
+	        {
+				int[] data = getDataFromLine(line);
+				int id = data[0]; 
+				int x = data[1];
+				int y = data[2];
+	            
+				City city = new City(id, x, y);
+	            cities[citiesIndex] = city; 
+	            citiesIndex++; 
+	        }
+	        br.close();	
+	        
+	        // We calculate the distance between each cities and creates an array of arrays
+	        calculateNunmberOfRoads();
+	        calculateRoad();
+		}
+		catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	private void calculateNunmberOfRoads() {
+		int copyNumberOfCities = numberOfCities; 
+		int justToCheck = 0; 
+		for(int city = copyNumberOfCities; city >= 0; city--) {
+			
+			numberOfRoads += --copyNumberOfCities; 
+			justToCheck = numberOfRoads;
+		}
+	}
+	
+	
+	private int[] getDataFromLine(String line) {
+		int[] cityData = new int[3];
+	    
+		//anything other than alphanumberic characters, comma, dot or negative sign is skipped
+		// source: https://stackoverflow.com/questions/3272575/how-to-get-numbers-out-of-string
+		Scanner scanner = new Scanner(line);
+		scanner.useDelimiter("[^\\p{Alnum},\\.-]"); 
+	    
+	    int data = 0;
+	    while (scanner.hasNextInt()) {
+	    	cityData[data] = scanner.nextInt();
+	    	data++;
+	    }
+	    scanner.close();
+		return cityData;
+	}
+	
+	private Number[] calculateRoad() {
+		Number[] road = new Number[numberOfRoads]; 
+		
+		int indexOfRoads = 0;
+		 
+		for (int city = 0; city < cities.length; city++) {
+			City city1 = cities[city];
+			for (int nextCity = city + 1; nextCity < cities.length; nextCity++) {
+				City city2 = cities[nextCity];
+				double distance = city1.calculateDistanceCities(city2);
+				road[0] = city1.getId();
+				road[1] = city2.getId(); 
+				road[2] = distance;
+				roads[indexOfRoads] = road; 
+				indexOfRoads++; 
+			}
+		}
+		return road;
+	}
+	
+	//TODO delete me
+	public void testParsing() {
+		for(City city : cities) {
+			int id = city.getId();
+			int x = city.getX();
+			int y = city.getY();
+			
+			System.out.println("City " + id + " - x: " + x + " - y " + y);
+		}
+	}
+	
+
+}

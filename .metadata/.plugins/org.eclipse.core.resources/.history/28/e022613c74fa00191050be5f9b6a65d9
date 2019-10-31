@@ -1,0 +1,67 @@
+package travellingSalesman;
+
+import java.awt.List;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+/**
+ * This class takes as an input a text file
+ * And generates an array of City
+ * Array of nodes + Array of vertex?
+ * Get a list of 1  1 1 = city 1 is at x=1 and y=2
+ * Needs to convert that to a list of cities
+ *
+ */
+
+public class ProblemReader {
+	
+	int numberOfCities; 
+	
+	ProblemReader(String path) {
+		File problemFile = new File(path);
+		List<String> lines = Files.readAllLines(path, Charset.defaultCharset());
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(problemFile));
+			String line;
+			while ((line = br.readLine()) != null)
+	        {
+				int[] data = getDataFromLine(line);
+				int id = data[0]; 
+				int x = data[1];
+				int y = data[2];
+	            City city = new City(id, x, y);
+	        }
+	        br.close();	 
+		}
+		catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	
+	private int[] getDataFromLine(String line) {
+		int[] cityData = new int[3];
+	    
+		//anything other than alphanumberic characters, comma, dot or negative sign is skipped
+		// source: https://stackoverflow.com/questions/3272575/how-to-get-numbers-out-of-string
+		Scanner fi = new Scanner(line);
+	    fi.useDelimiter("[^\\p{Alnum},\\.-]"); 
+	    
+	    int index = 0;
+	    while (fi.hasNextInt()) {
+	    	cityData[index] = fi.nextInt();
+	    	index++;
+	    }
+		return cityData;
+	}
+	
+	
+	
+
+}

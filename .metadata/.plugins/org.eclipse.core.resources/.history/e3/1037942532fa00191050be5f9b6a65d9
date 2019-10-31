@@ -1,0 +1,56 @@
+package travellingSalesman;
+
+/**
+ * This class takes as an input the
+ * TODO check the format of the input files: console? xml? html? simple doc?
+ * files and makes a graph out of it. 
+ * The graphs are stored in an array
+ * Array of nodes + Array of vertex?
+ * Get a list of 1  1 1 = city 1 is at x=1 and y=2
+ * Needs to convert that to a list of cities
+ * And creates an array of vertex that is calculated with pythagoras theorem
+ *
+ */
+
+public class ProblemReader {
+	
+	int numberOfCities; 
+	private int[] citiesNode; 
+	
+	ProblemReader(String problem) {
+		//while nextLine
+		//assuming each line has a x, a y and a "name of the city"?
+		numberOfCities++; 
+		
+		citiesNode = new int[numberOfCities];
+	}
+	
+	
+	//do we need to use pythagoras? Can't we just use the line slope?
+	public double calculateDistanceCities(int[] city1, int[] city2 ) {
+		
+		try {
+			if(city1.length != 2 && city2.length != 2) {
+				Exception e = new Exception("We need a x and a y for each city");
+				throw e; 
+			}
+		} catch (Exception e) {
+			e.fillInStackTrace();
+		}
+		
+		int x1, y1, x2, y2, side1, side2, side3; 
+		x1 = city1[0]; 
+		y1 = city1[1];
+		x2 = city2[0];
+		y2 = city2[1];
+		
+		side1 = x1 > x2 ? x1 - x2 : x2 - x1; 
+		side2 = y1 > y2 ? y1 - y2 : y2 - y1; 
+		
+		side3 = /*square root of */ side1^2 + side2^2; 
+	
+		
+		return side3; 
+	}
+
+}

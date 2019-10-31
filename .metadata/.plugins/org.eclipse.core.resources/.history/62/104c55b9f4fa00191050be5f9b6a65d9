@@ -1,0 +1,21 @@
+package travellingSalesman;
+
+ 
+
+public class TravellingSalesman {
+	
+	static ProblemReader reader; 
+	DepthFirstSearch dfs = new DepthFirstSearch(); 
+	
+	public static void main(String[] args) {
+		if(args.length > 0) {
+			System.out.println("I have argument"); 
+			String path = args[0];			
+			reader = new ProblemReader(path);
+			reader.toDelete();
+		}
+		
+		System.out.println("Working"); 
+	}
+
+}

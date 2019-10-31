@@ -1,0 +1,51 @@
+package travellingSalesman;
+
+public class City {
+
+	private int[] coordinates;
+	private int x; 
+	private int y; 
+	
+	
+	
+	City(int[] coordinates){
+		this.coordinates = coordinates;
+		
+		try {
+			if(coordinates.length != 2) {
+				Exception e = new Exception("We need a x and a y for each city");
+				throw e; 
+			}
+		} catch (Exception e) {
+			e.fillInStackTrace();
+		}
+		x = coordinates[0]; 
+		y = coordinates[1];
+	}
+	
+	public int[] getCoordinates() {
+		return coordinates; 
+	} 
+	
+	public int getX() {return x;}
+	
+	public int getY() {return y;}
+	
+	//do we need to use pythagoras? Can't we just use the line slope?
+		public double calculateDistanceCities(City city2) {
+				
+			int x1 = this.getX(); 
+			int y1 = this.getY(); 
+			int x2 = city2.getX(); 
+			int y2 = city2.getX();
+			double side1, side2, side3; 
+	
+			side1 = x1 > x2 ? x1 - x2 : x2 - x1; 
+			side2 = y1 > y2 ? y1 - y2 : y2 - y1; 
+			
+			side3 = Math.sqrt(Math.pow(side1, 2) + Math.pow(side2, 2)); 
+		
+			
+			return side3; 
+		}
+}

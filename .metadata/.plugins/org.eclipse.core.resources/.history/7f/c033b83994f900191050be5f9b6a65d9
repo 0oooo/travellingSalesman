@@ -1,0 +1,15 @@
+package travellingSalesman;
+
+/**
+ * This class takes as an input the
+ * TODO check the format of the input files: console? xml? html? simple doc?
+ * files and makes a graph out of it. 
+ * The graphs are stored in an array
+ *
+ */
+
+public class problemReader {
+	
+	void ProblemReader() {}
+
+}

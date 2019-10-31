@@ -1,0 +1,31 @@
+package travellingSalesman;
+
+/**
+ * This class takes as an input the
+ * TODO check the format of the input files: console? xml? html? simple doc?
+ * files and makes a graph out of it. 
+ * The graphs are stored in an array
+ * Array of nodes + Array of vertex?
+ * Get a list of 1  1 1 = city 1 is at x=1 and y=2
+ * Needs to convert that to a list of cities
+ * And creates an array of vertex that is calculated with pythagoras theorem
+ *
+ */
+
+public class ProblemReader {
+	
+	int numberOfCities; 
+	private int[] citiesNode; 
+	
+	ProblemReader(String problem) {
+		//while nextLine
+		//assuming each line has a x, a y and a "name of the city"?
+		numberOfCities++; 
+		
+		citiesNode = new int[numberOfCities];
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,14 @@
+package travellingSalesman;
+
+ 
+
+public class TravellingSalesman {
+	
+	ProblemReader reader = new ProblemReader(); 
+	DepthFirstSearch dfs = new DepthFirstSearch(); 
+	
+	public static void main(String[] args) {
+		System.out.println("Working"); 
+	}
+
+}
