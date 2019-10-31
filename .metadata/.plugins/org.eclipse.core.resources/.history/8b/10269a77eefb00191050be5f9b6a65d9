@@ -17,6 +17,7 @@ public class Road {
 		road[2] = distance; 
 	}
 	
+	
 	public City getCity1() {
 		return (City)road[0];
 	}

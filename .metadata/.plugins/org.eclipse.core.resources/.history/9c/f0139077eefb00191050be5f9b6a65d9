@@ -42,12 +42,14 @@ public class ProblemParser {
 				int y = data[2];
 	            
 				City city = new City(id, x, y);
-				map.addCityToList(city);           
+				map.addCityToList(city);
+	            
 	        }
 	        br.close();	
 	        
 	        // We calculate the distance between each cities and creates an array of arrays
-	        map.calculateRoad();        
+	        map.calculateRoad(); 
+	       
 		}
 		catch (FileNotFoundException e) {
 	        e.printStackTrace();
@@ -55,6 +57,9 @@ public class ProblemParser {
 	        e.printStackTrace();
 	    }
 	}
+	
+
+	
 	
 	private int[] getDataFromLine(String line) {
 		int[] cityData = new int[3];
