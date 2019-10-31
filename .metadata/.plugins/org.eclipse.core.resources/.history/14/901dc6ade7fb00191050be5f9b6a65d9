@@ -18,7 +18,10 @@ import java.util.Scanner;
 
 public class ProblemParser {
 	
-	Map map; 
+	int numberOfCities; 
+	int numberOfRoads = 0; 
+	City[] cities; 
+	Number[][] roads;
 	
 	ProblemParser(String path) {
 		try {
@@ -26,13 +29,13 @@ public class ProblemParser {
 			// we start with counting the number of lines of a problem
 			File problemFile = new File(path);
 			long lineCount = Files.lines(Paths.get(problemFile.getName())).count();
-			int numberOfCities = (int) lineCount;  //pass it as an argument to build the roadgraph
-			
-			map = new Map (numberOfCities);
+			cities = new City[(int)lineCount];
+			numberOfCities = (int) lineCount; 
 			
 			// Then we parse each line to become a City with its id, x, y
 			BufferedReader br = new BufferedReader(new FileReader(problemFile));
 			String line;
+			int citiesIndex = 0; 
 			while ((line = br.readLine()) != null)
 	        {
 				int[] data = getDataFromLine(line);
@@ -41,14 +44,14 @@ public class ProblemParser {
 				int y = data[2];
 	            
 				City city = new City(id, x, y);
-				map.addCityToList(city);
-	            
+	            cities[citiesIndex] = city; 
+	            citiesIndex++; 
 	        }
 	        br.close();	
 	        
 	        // We calculate the distance between each cities and creates an array of arrays
-	        map.calculateRoad(); 
-	       
+	        calculateNunmberOfRoads();
+	        calculateRoad();
 		}
 		catch (FileNotFoundException e) {
 	        e.printStackTrace();
@@ -57,7 +60,12 @@ public class ProblemParser {
 	    }
 	}
 	
-
+	private void calculateNunmberOfRoads() {
+		int copyNumberOfCities = numberOfCities; 
+		for(int city = copyNumberOfCities; city > 0; city--) {		
+			numberOfRoads += --copyNumberOfCities; 
+		}
+	}
 	
 	
 	private int[] getDataFromLine(String line) {
@@ -77,10 +85,29 @@ public class ProblemParser {
 		return cityData;
 	}
 	
+	private void calculateRoad() {
+		
+//		Number[] road = new Number[3]; 
+		roads = new Number[numberOfRoads][];
+		int indexOfRoads = 0;
+		 
+		for (int city = 0; city < cities.length; city++) {
+			City city1 = cities[city];
+			for (int nextCity = city + 1; nextCity < cities.length; nextCity++) {
+				Number[] road = new Number[3];
+				City city2 = cities[nextCity];
+				double distance = city1.calculateDistanceCities(city2);
+				road[0] = city1.getId();
+				road[1] = city2.getId(); 
+				road[2] = distance;
+				roads[indexOfRoads] = road; 
+				indexOfRoads++; 
+			}
+		}
+	}
 	
 	//TODO delete me
 	public void testParsing() {
-		City[] cities = map.getCities(); 
 		for(City city : cities) {
 			int id = city.getId();
 			int x = city.getX();
@@ -89,10 +116,9 @@ public class ProblemParser {
 			System.out.println("City " + id + " - x: " + x + " - y " + y);
 		}
 		
-		Road[] roads = map.getRoads(); 
-		for (Road road : roads) {
+		for (Number[] road : roads) {
 			System.out.print("Road: ");
-			System.out.println("City " + road.getCity1().getId() + " and City " + road.getCity2().getId() + " have a distance of " + road.getDistance());
+			System.out.println("City " + road[0] + " and City " + road[1] + " have a distance of " + road[2]);
 		}
 	}
 	

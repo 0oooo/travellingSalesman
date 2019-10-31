@@ -13,12 +13,12 @@ public class Road {
 	}
 	
 	
-	public City getCity1() {
-		return (City)road[0];
+	public int getCity1() {
+		return (int)road[0];
 	}
 	
-	public City getCity2() {
-		return (City)road[1];
+	public int getCity2() {
+		return (int)road[1];
 	}
 	
 	public double getDistance() {

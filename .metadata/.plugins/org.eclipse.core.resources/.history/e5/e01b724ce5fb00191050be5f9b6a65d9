@@ -1,0 +1,48 @@
+package travellingSalesman;
+
+public class RoadGraph {
+	
+	Road[] roads; 
+	int numberOfRoads;
+	int indexOfRoad = 0; 
+	
+	RoadGraph(int numberOfCities){
+		numberOfRoads = calculateNunmberOfRoads(numberOfCities);
+	}
+	
+	private void addRoadTograph(Road road) {
+		roads[indexOfRoad] = road; 
+		indexOfRoad++; 
+	}
+
+	
+	private int calculateNunmberOfRoads(int numberOfCities) {
+		int roads = 0; 
+		for(int city = numberOfCities; city > 0; city--) {		
+			roads += --numberOfCities; 
+		}
+		return roads; 
+	}
+	
+	private void calculateRoad(City[] cities) {
+		
+//		Number[] road = new Number[3]; 
+		roads = new Number[numberOfRoads][];
+		int indexOfRoads = 0;
+		 
+		for (int city = 0; city < cities.length; city++) {
+			City city1 = cities[city];
+			for (int nextCity = city + 1; nextCity < cities.length; nextCity++) {
+				Number[] road = new Number[3];
+				City city2 = cities[nextCity];
+				double distance = city1.calculateDistanceCities(city2);
+				road[0] = city1.getId();
+				road[1] = city2.getId(); 
+				road[2] = distance;
+				roads[indexOfRoads] = road; 
+				indexOfRoads++; 
+			}
+		}
+	}
+
+}
