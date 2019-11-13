@@ -80,7 +80,7 @@ public class ProblemParser {
 		return null; 
 	}
 	
-	public void test() {
+	public void testParsing() {
 		City[] cities = map.getCities(); 
 		for(City city : cities) {
 			int id = city.getId();

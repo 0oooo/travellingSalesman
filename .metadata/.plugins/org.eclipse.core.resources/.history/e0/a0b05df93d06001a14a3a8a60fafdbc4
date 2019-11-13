@@ -47,7 +47,7 @@ public class ProblemParser {
 	        br.close();	
 	        
 	        // We calculate the distance between each cities and creates an array of arrays
-	        map.generateRoadMatrix();
+	        map.calculateRoad();        
 		}
 		catch (FileNotFoundException e) {
 	        e.printStackTrace();
@@ -80,7 +80,7 @@ public class ProblemParser {
 		return null; 
 	}
 	
-	public void test() {
+	public void testParsing() {
 		City[] cities = map.getCities(); 
 		for(City city : cities) {
 			int id = city.getId();
@@ -90,9 +90,11 @@ public class ProblemParser {
 			System.out.println("City " + id + " - x: " + x + " - y " + y);
 		}
 		
-		System.out.println("Road Matrix");
-		map.printRoadMatrix();
-		
+		Road[] roads = map.getRoads(); 
+		for (Road road : roads) {
+			System.out.print("Road: ");
+			System.out.println("City " + road.getCity1().getId() + " and City " + road.getCity2().getId() + " have a distance of " + road.getDistance());
+		}
 	}
 	
 

@@ -12,7 +12,7 @@ public class TravellingSalesman {
 			System.out.println("I have argument"); 
 			String path = args[0];			
 			reader = new ProblemParser(path);
-			reader.test();
+			reader.testParsing();
 		}
 		
 		System.out.println("Working"); 

@@ -79,7 +79,7 @@ public class Map {
 		for(double[] road : roadMatrix ) {
 			System.out.print("[");
 			for(double distance : road) {
-				System.out.print(distance + "  ");
+				System.out.print(distance);
 			}
 			System.out.println("]");
 		}
