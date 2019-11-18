@@ -7,17 +7,21 @@ package travellingSalesman;
 
 public class Map {
 	
-	City[] cities; 
-	double[][] roadMatrix; 
-	int indexOfCity = 0; 
+	private City[] cities; 
+	private double[][] roadMatrix; 
+	private int indexOfCity = 0; 
+	private int numberOfCities; 
+	private int numberOfPaths; 
 	
-	Map(int numberOfCities){
+	public Map(int numberOfCities){
 		cities = new City[numberOfCities];
+		this.numberOfCities = numberOfCities; 
 		roadMatrix = new double[numberOfCities][numberOfCities];
+		numberOfPaths = calculateNumberOfPaths(this.numberOfCities); 
 	}
 	
 	public City[] getCities() {
-		if(cities.length > 0) {
+		if(hasCities()) {
 			return cities; 
 		}
 		return null; 
@@ -32,36 +36,31 @@ public class Map {
 	
 	public boolean hasCities() {
 		if (cities.length > 0) {
-			return false; 
+			return true; 
 		}
-		return true; 
+		return false; 
 	}
 	
 	public void addCityToList(City city) {
 		cities[indexOfCity] = city; 
 		indexOfCity++; 
 	}
-
 	
-	public double calculateDistanceCities(City city1, City city2) {		
-		int x1 = city1.getX(); 
-		int y1 = city2.getY(); 
-		int x2 = city2.getX(); 
-		int y2 = city2.getY();
-		double side1, side2, side3; 
-		
-		side1 = x1 > x2 ? x1 - x2 : x2 - x1; 
-		side2 = y1 > y2 ? y1 - y2 : y2 - y1; 
-		
-		if(x1 == x2) {
-			return side2;
+	public int getNumberOfCities() {
+		return numberOfCities; 
+	}
+	
+	public int calculateNumberOfPaths(int numberOfCity) {
+		int roads = 0; 
+		int copyNumberOfCities = numberOfCity;
+		for(int city = copyNumberOfCities; city > 0; city--) {		
+			roads += --copyNumberOfCities; 
 		}
-		if(y1 == y2) {
-			return side1;
-		}
-
-		side3 = Math.sqrt( Math.pow(side1, 2) + Math.pow(side2, 2)); 
-		return side3; 
+		return roads; 
+	}
+	
+	public int getNumberOfPaths() {
+		return numberOfPaths; 
 	}
 	
 	public void generateRoadMatrix() {
@@ -69,7 +68,7 @@ public class Map {
 			for(int nextCity = 0; nextCity < cities.length; nextCity++) {
 				City city1 = cities[city];
 				City city2 = cities[nextCity];
-				double distance = calculateDistanceCities(city1, city2);
+				double distance = city1.calculateDistanceToCity(city2);
 				roadMatrix[city][nextCity] = distance; 
 			}
 		}
@@ -85,4 +84,7 @@ public class Map {
 		}
 	}
 
+	public double[][] getRoadMatrix(){
+		return roadMatrix;
+	}
 }

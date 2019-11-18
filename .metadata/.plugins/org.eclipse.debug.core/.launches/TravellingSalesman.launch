@@ -9,6 +9,6 @@
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_EXCLUDE_TEST_CODE" value="true"/>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="travellingSalesman.TravellingSalesman"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="/Users/CC/Documents/CS/travellingSalesman/travellingSalesman/test2atsp.txt"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="/Users/CC/Documents/CS/travellingSalesman/travellingSalesman/test1tsp.txt"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="travellingSalesman"/>
 </launchConfiguration>

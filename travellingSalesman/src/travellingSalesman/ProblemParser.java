@@ -19,9 +19,9 @@ import java.util.Scanner;
 
 public class ProblemParser {
 	
-	Map map; 
+	private Map map;
 	
-	ProblemParser(String path) {
+	public ProblemParser(String path) {
 		try {
 			// To know how long is our array of city, 
 			// we start with counting the number of lines of a problem

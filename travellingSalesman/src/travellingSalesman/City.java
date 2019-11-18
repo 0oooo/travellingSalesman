@@ -5,14 +5,16 @@ public class City {
 	private int[] coordinates = new int[2];
 	private int cityId; 
 	private int x; 
-	private int y; 	
+	private int y; 
+	private boolean visited; 
 	
-	City(int cityId, int x, int y){
+	public City(int cityId, int x, int y){
 		this.cityId = cityId;
 		this.x = x; 
 		this.y = y;
 		coordinates[0] = x; 
 		coordinates[1] = y;
+		visited = false;
 	}
 	
 	public int[] getCoordinates() {return coordinates;} 
@@ -23,8 +25,15 @@ public class City {
 	
 	public int getY() {return y;}
 	
+	public void setVisited(boolean visited) {
+		this.visited = visited;
+	}
 	
-	public double calculateDistanceCities(City city2) {		
+	public boolean isVisited() {
+		return visited;
+	}
+	
+	public double calculateDistanceToCity( City city2) {		
 		int x1 = this.getX(); 
 		int y1 = this.getY(); 
 		int x2 = city2.getX(); 
@@ -44,4 +53,5 @@ public class City {
 		side3 = Math.sqrt( Math.pow(side1, 2) + Math.pow(side2, 2)); 
 		return side3; 
 	}
+	
 }
