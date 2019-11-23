@@ -2,36 +2,21 @@ package travellingSalesman;
 
 public class City {
 
-	private int[] coordinates = new int[2];
 	private int cityId; 
 	private int x; 
 	private int y; 
-	private boolean visited; 
 	
 	public City(int cityId, int x, int y){
 		this.cityId = cityId;
 		this.x = x; 
 		this.y = y;
-		coordinates[0] = x; 
-		coordinates[1] = y;
-		visited = false;
 	}
-	
-	public int[] getCoordinates() {return coordinates;} 
 	
 	public int getId() {return cityId;}
 	
 	public int getX() {return x;}
 	
 	public int getY() {return y;}
-	
-	public void setVisited(boolean visited) {
-		this.visited = visited;
-	}
-	
-	public boolean isVisited() {
-		return visited;
-	}
 	
 	public double calculateDistanceToCity( City city2) {		
 		int x1 = this.getX(); 

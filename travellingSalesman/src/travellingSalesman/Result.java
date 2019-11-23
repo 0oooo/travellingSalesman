@@ -1,18 +1,18 @@
 package travellingSalesman;
 
-import java.util.ArrayList;
-
 public class Result {
 	
 	private double bestCost; 
-	private ArrayList<City> bestPath; 
+	private City[] bestPath; 
+	private int numberOfCityInPath; 
 	
-	public Result() {
+	public Result(int numberOfCity) {
+		numberOfCityInPath = numberOfCity + 1; 
 		bestCost = 0; 
-		bestPath = new ArrayList<City>();
+		bestPath = new City[numberOfCityInPath];
 	}
 	
-	public Result(double bestCost, ArrayList<City> bestPath) {
+	public Result(double bestCost, City[] bestPath) {
 		this.bestCost = bestCost; 
 		this.bestPath = bestPath; 
 	}
@@ -21,7 +21,7 @@ public class Result {
 		return bestCost;
 	}
 
-	public ArrayList<City> getBestPath() {
+	public City[] getBestPath() {
 		return bestPath;
 	}
 
@@ -29,10 +29,18 @@ public class Result {
 		this.bestCost = bestCost;
 	}
 
-	public void setBestPath(ArrayList<City> bestPath) {
+	public void setBestPath(City[] bestPath) {
 		this.bestPath = bestPath;
 	}
 	
-	
+	public String getBestPathString() {
+		String bestPathString = "Best Path = "; 
+		
+		for(City city : bestPath) {
+			bestPathString += city.getId() + " ";
+		}
+		
+		return bestPathString; 
+	}
 
 }

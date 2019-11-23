@@ -1,28 +1,27 @@
 package travellingSalesman;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Query {
 	
-	private ArrayList<City> points; 
-	private ArrayList<City> path; 
+	private City[] cities; 
+	private City[] path; 
 	private Set<City> visited; 
 	private double overallBest;
 	
-	public Query(ArrayList<City> points) {
-		this.points = points;
-		path = new ArrayList<City>();
+	public Query(City[] cities, int numberOfCities) {
+		this.cities = cities;
+		path = new City[numberOfCities];
 		visited = new HashSet<City>();
 		overallBest = 0;
 	}
 
-	public ArrayList<City> getPoints() {
-		return points;
+	public City[] getCities() {
+		return cities;
 	}
 
-	public ArrayList<City> getPath() {
+	public City[] getPath() {
 		return path;
 	}
 
@@ -34,12 +33,12 @@ public class Query {
 		return overallBest;
 	}
 
-	public Query setPoints(ArrayList<City> points) {
-		this.points = points;
+	public Query setCities(City[] points) {
+		this.cities = points;
 		return this; 
 	}
 
-	public Query setPath(ArrayList<City> path) {
+	public Query setPath(City[] path) {
 		this.path = path;
 		return this; 
 	}

@@ -1,43 +1,47 @@
 package travellingSalesman;
 
-import java.util.ArrayList;
-
 public class AllPaths {
 	
-	private ArrayList<Double> costs;
-	private ArrayList<ArrayList<City>> paths; 
+	private double[] costs;
+	private City[][] paths; 
+	private int nextPath; 
+	private int nextCost; 
 	
-	public AllPaths() {
-		costs = new ArrayList<Double>();
-		paths = new ArrayList<ArrayList<City>>(); 
+	public AllPaths(int numberOfPaths) {
+		costs = new double[numberOfPaths];
+		paths = new City[numberOfPaths][]; 
+		nextPath = 0; 
+		nextCost = 0; 
 	}
 
-	public ArrayList<Double> getAllScores() {
+	public double[] getAllCosts() {
 		return costs;
 	}
 
-	public ArrayList<ArrayList<City>> getAllPaths() {
+	public City[][] getAllPaths() {
 		return paths;
 	}
 	
-	public void addPath(ArrayList<City> path) {
-		paths.add(path);
+	public void addPath(City[] path) {
+		paths[nextPath] = path;
+		nextPath++; 
 	}
 	
-	public void addScore(double score) {
-		costs.add(score);
+	public void addCost(double cost) {
+		costs[nextCost] = cost; 
+		nextCost++; 
 	}
 	
 	
 	public String getAllPathsWithCost() {
 		String pathsCostString = ""; 
 		
-		for (int i = 0; i < paths.size(); i++) {
+		for (int i = 0; i < paths.length; i++) {
 			pathsCostString += "Path: "; 
-			for (City city : paths.get(i)) {
+			for (City city : paths[i]) {
 				pathsCostString += city.getId() + " "; 
 			}
-			pathsCostString += " -> Cost = " + costs.get(i) + "\n";
+			pathsCostString += " -> Cost = " + costs[i] + "\n";
 		}
 		
 		return pathsCostString; 
