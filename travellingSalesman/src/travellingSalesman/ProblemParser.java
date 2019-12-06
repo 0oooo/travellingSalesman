@@ -84,8 +84,8 @@ public class ProblemParser {
 		City[] cities = map.getCities(); 
 		for(City city : cities) {
 			int id = city.getId();
-			int x = city.getX();
-			int y = city.getY();
+			int x = city.getHorizontalCoordinate();
+			int y = city.getVerticalCoordinate();
 			
 			System.out.println("City " + id + " - x: " + x + " - y " + y);
 		}

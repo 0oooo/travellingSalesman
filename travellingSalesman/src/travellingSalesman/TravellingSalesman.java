@@ -24,13 +24,18 @@ public class TravellingSalesman {
 			System.out.println("The best path is " + result.getBestPathString());
 			System.out.println("The best cost is " + result.getBestCost());
 			
-//			System.out.println("Shortest Path");
-//			ShortestPath shortestPath = new ShortestPath(myMap, numberOfCities);
-//			shortestPath.search(); 
-//			City[] path = shortestPath.getPath(); 
-//			double distance = shortestPath.getTotalDistance();
-//			System.out.println("The best path is " + shortestPath.getPathAsString()); 
-//			System.out.println("The best cost is " + distance);
+			System.out.println("Shortest Path");
+			NearestNeighbour shortestPath = new NearestNeighbour(myMap, numberOfCities);
+			shortestPath.search(); 
+			double distance = shortestPath.getTotalDistance();
+			System.out.println("The best path is " + shortestPath.getPathAsString()); 
+			System.out.println("The best cost is " + distance);
+			
+			
+			//todo from map to city / roads for djdj
+			System.out.println("Dijkstra");
+			Dijkstra dijkstra = new Dijkstra(); 
+			dijkstra.computeShortestPaths(cities[0]);
 		}
 		else {
 			System.out.println("There was no test given."); 
