@@ -23,22 +23,15 @@ public class DFS {
 		
 		allPaths = new AllPaths(numberOfPaths); 
 	}
+	
 
 	public Result search(Query query) {
-		
-		
-//					System.out.println("---------------------------------------" );
-//					System.out.println("Begining of the function" );
-//					System.out.print("Cities = [" );
-//					for(City city : query.getCities()) {
-//						System.out.print(" " + city.getId() + " ");
-//					}
-//					System.out.println("]"); 
 					
 		Set<City> citiesSet = new HashSet<City>(Arrays.asList(query.getCities()));
 		Set<City> visitedSet = query.getVisited();
 		City[] path = query.getPath();
 
+		// The first time we do the search, no city is visited. We initialise 
 		if (query.getVisited().isEmpty()) {
 			City[] cities = query.getCities(); 
 			path[0] = cities[0];
@@ -54,49 +47,18 @@ public class DFS {
 			visitedSet = new HashSet<City>(query.getVisited());
 		}
 		
-//					System.out.print("Path = [" );
-//					for(City city7 : path) {
-//						if(city7 == null) {
-//							break;
-//						}
-//						System.out.print(" " + city7.getId() + " ");
-//					}
-//					System.out.println("]"); 
-//		
-//		
-//					System.out.print("CitiesSet = {" );
-//					for(City city : citiesSet) {
-//						System.out.print(" " + city.getId() + " ");
-//					}
-//					System.out.println("}"); 
 
 		Set<City> available = new HashSet<City>();
 		available = citiesSet;
 		available.removeAll(visitedSet);
 		
-//					System.out.print("Available = {" );
-//					for(City city : available) {
-//						System.out.print(" " + city.getId() + " ");
-//					}
-//					System.out.println("}"); 
-
-		//
 		if (available.size() == 0) {
 						
-			
 			City[] finalPath = query.getPath().clone();
 			City firstCity  = query.getPath()[0];
 			finalPath[numberOfCities -1] = firstCity;
 			
 			double finalCost = this.calculateCost(finalPath);
-			
-//						System.out.println("!!!!!!  New Path! !!!!!!!");
-//						System.out.print("FinalPath = ["); 
-//						for(City city : finalPath) {
-//							System.out.print(" " + city.getId() + " ");
-//						}
-//						System.out.println("]"); 
-//						System.out.println("And my cost is " + finalCost);
 			
 			allPaths.addPath(finalPath);
 			allPaths.addCost(finalCost);
@@ -111,57 +73,12 @@ public class DFS {
 			
 			visitedSet.add(city);
 			path[cityPosition] = city;
-			cityPosition++; 
-			
-//						System.out.println("For each city in available.."); 
-//						
-//						System.out.println("VisitedSet += " + city.getId()); 
-//						System.out.println("Pth +=" + city.getId()); 
-//						
-//						System.out.print("VisitedSed = {");
-//						for(City city1 : visitedSet) {
-//							System.out.print(" " + city1.getId() + " ");
-//						}
-//						System.out.println("}"); 
-//						System.out.print("Path = [");
-//						for(City city0 : path) {
-//							if(city0 == null) {
-//								break;
-//							}
-//							System.out.print(" " + city0.getId() + " ");
-//						}
-//						System.out.println("]"); 
-			
+			cityPosition++;
 			
 			Query copyQuery = new Query(query.getCities(), numberOfCities);
 			copyQuery.setOverallBest(0).setPath(path).setVisited(visitedSet);
 
 			Result currentResult = this.search(copyQuery);
-			
-//						System.out.println("we're back from recursion");
-//						System.out.print("Path From result = [");
-//						for(City city2 : currentResult.getBestPath()) {
-//							System.out.print(" " + city2.getId() + " ");
-//						}
-//						System.out.println("]");
-//						System.out.print("Path where we are = [");
-//						for(City city2 : path) {
-//							if(city2 == null) {
-//								break;
-//							}
-//							System.out.print(" " + city2.getId() + " ");
-//						}
-//						System.out.println("]");
-//						System.out.print("Available = {");
-//						for(City city12 : available) {
-//							System.out.print(" " + city12.getId() + " ");
-//						}
-//						System.out.println("}");
-//						System.out.print("Visited = {");
-//						for(City city13 : visitedSet) {
-//							System.out.print(" " + city13.getId() + " ");
-//						}
-//						System.out.println("}");
 
 			// if that path is better, keep it
 			if (bestCost == 0 || currentResult.getBestCost() < bestCost) {
@@ -182,21 +99,6 @@ public class DFS {
 				newPath[visitedCity] = path[visitedCity + 1];
 			}
 			cityPosition--;
-			
-//						System.out.println("After the removal");
-//						System.out.print("Path = [");
-//						for(City city2 : path) {
-//							if(city2 == null) {
-//								break;
-//							}
-//							System.out.print(" " + city2.getId() + " ");
-//						}
-//						System.out.println("]");
-//						System.out.print("visitedSed = [");
-//						for(City city11 : visitedSet) {
-//							System.out.print(" " + city11.getId() + " ");
-//						}
-//						System.out.println("]");
 		}
 
 		return new Result(bestCost, bestPath);

@@ -23,6 +23,14 @@ public class TravellingSalesman {
 			System.out.println(allPaths.getAllPathsWithCost());
 			System.out.println("The best path is " + result.getBestPathString());
 			System.out.println("The best cost is " + result.getBestCost());
+			
+//			System.out.println("Shortest Path");
+//			ShortestPath shortestPath = new ShortestPath(myMap, numberOfCities);
+//			shortestPath.search(); 
+//			City[] path = shortestPath.getPath(); 
+//			double distance = shortestPath.getTotalDistance();
+//			System.out.println("The best path is " + shortestPath.getPathAsString()); 
+//			System.out.println("The best cost is " + distance);
 		}
 		else {
 			System.out.println("There was no test given."); 

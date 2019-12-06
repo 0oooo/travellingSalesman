@@ -32,27 +32,27 @@ public class ProblemParser {
 			map = new Map (numberOfCities);
 			
 			// Then we parse each line to become a City with its id, x, y
-			BufferedReader br = new BufferedReader(new FileReader(problemFile));
+			BufferedReader reader = new BufferedReader(new FileReader(problemFile));
 			String line;
-			while ((line = br.readLine()) != null)
+			while ((line = reader.readLine()) != null)
 	        {
 				int[] data = getDataFromLine(line);
-				int id = data[0]; 
-				int x = data[1];
-				int y = data[2];
+				int cityId = data[0]; 
+				int horizontal = data[1];
+				int vertical = data[2];
 	            
-				City city = new City(id, x, y);
+				City city = new City(cityId, horizontal, vertical);
 				map.addCityToList(city);           
 	        }
-	        br.close();	
+	        reader.close();	
 	        
-	        // We calculate the distance between each cities and creates an array of arrays
+	        // We calculate the distance between each city and create an array of arrays
 	        map.generateRoadMatrix();
 		}
-		catch (FileNotFoundException e) {
-	        e.printStackTrace();
-	    } catch (IOException e) {
-	        e.printStackTrace();
+		catch (FileNotFoundException fileNotFoundException) {
+	        fileNotFoundException.printStackTrace();
+	    } catch (IOException exceptionIO) {
+	        exceptionIO.printStackTrace();
 	    }
 	}
 	
@@ -65,7 +65,7 @@ public class ProblemParser {
 		scanner.useDelimiter("[^\\p{Alnum},\\.-]"); 
 	    
 	    int data = 0;
-	    while (scanner.hasNextInt()) {
+	    while (scanner.hasNextInt()) { 
 	    	cityData[data] = scanner.nextInt();
 	    	data++;
 	    }

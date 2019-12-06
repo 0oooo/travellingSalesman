@@ -6,6 +6,8 @@ public class City {
 	private int x; 
 	private int y; 
 	
+	public City() {}
+	
 	public City(int cityId, int x, int y){
 		this.cityId = cityId;
 		this.x = x; 
