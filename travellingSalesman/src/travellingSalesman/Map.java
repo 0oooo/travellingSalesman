@@ -1,8 +1,11 @@
 package travellingSalesman;
 
 /**
- * This class is a map. 
- * It contains an array of all the cities and an array of all the roads. 
+ * This is a map generated from the read file.  
+ * It contains: 
+ * - an array of all the cities, 
+ * - the number of cities 
+ * - the number of possible paths
  */
 
 public class Map {

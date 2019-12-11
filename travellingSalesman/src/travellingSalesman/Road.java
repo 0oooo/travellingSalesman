@@ -3,18 +3,18 @@ package travellingSalesman;
 
 public class Road {
 	
-	private double distance;
+	private double distanceBetweenCities;
 	private City startCity; 
 	private City nextCity;
 	
-	public Road(double distance, City startCity, City nextCity) {
-		this.distance = distance; 
+	public Road(City startCity, City nextCity, double distance) {
+		this.distanceBetweenCities = distance; 
 		this.startCity = startCity; 
 		this.nextCity = nextCity; 
 	}
 
-	public double getDistance() {
-		return distance;
+	public double getDistanceBetweenCities() {
+		return distanceBetweenCities;
 	}
 
 	public City getStartCity() {
@@ -25,8 +25,8 @@ public class Road {
 		return nextCity;
 	}
 
-	public void setDistance(double distance) {
-		this.distance = distance;
+	public void setDistanceBetweenCities(double distance) {
+		this.distanceBetweenCities = distance;
 	}
 
 	public void setStartCity(City startCity) {

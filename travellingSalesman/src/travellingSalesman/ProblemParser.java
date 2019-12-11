@@ -7,7 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class takes as an input a text file and parse its info to create: 
@@ -46,8 +47,6 @@ public class ProblemParser {
 	        }
 	        reader.close();	
 	        
-	        // We calculate the distance between each city and create an array of arrays
-	        map.generateRoadMatrix();
 		}
 		catch (FileNotFoundException fileNotFoundException) {
 	        fileNotFoundException.printStackTrace();
@@ -59,17 +58,15 @@ public class ProblemParser {
 	private int[] getDataFromLine(String line) {
 		int[] cityData = new int[3];
 	    
-		//anything other than alphanumeric characters, comma, dot or negative sign is skipped
-		// source: https://stackoverflow.com/questions/3272575/how-to-get-numbers-out-of-string
-		Scanner scanner = new Scanner(line);
-		scanner.useDelimiter("[^\\p{Alnum},\\.-]"); 
+		Pattern pattern = Pattern.compile("-?\\d+");
+		Matcher matcher = pattern.matcher(line);
+		
+		int data = 0; 
+		while(matcher.find()) {
+			cityData[data] = Integer.parseInt(matcher.group()); 
+			data++;
+		}
 	    
-	    int data = 0;
-	    while (scanner.hasNextInt()) { 
-	    	cityData[data] = scanner.nextInt();
-	    	data++;
-	    }
-	    scanner.close();
 		return cityData;
 	}
 	
@@ -89,10 +86,6 @@ public class ProblemParser {
 			
 			System.out.println("City " + id + " - x: " + x + " - y " + y);
 		}
-		
-		System.out.println("Road Matrix");
-		map.printRoadMatrix();
-		
 	}
 	
 

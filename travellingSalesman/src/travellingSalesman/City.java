@@ -1,28 +1,20 @@
 package travellingSalesman;
 
-import java.util.ArrayList;
-
 public class City {
 
 	private int cityId; 
 	private int horizontalCoordinate; 
 	private int verticalCoordinate; 
 	
-	private ArrayList<Road> nearbyRoads; 
 	private boolean visited; 
-	private City lastCity; 
-	private double distance; 
 	
 	
 	public City() {}
 	
-	public City(int cityId, int x, int y){
+	public City(int cityId, int xCoordinate, int yCoordinate){
 		this.cityId = cityId;
-		this.horizontalCoordinate = x; 
-		this.verticalCoordinate = y;
-		
-		nearbyRoads = new ArrayList<Road>(); 
-		distance = 0; 
+		this.horizontalCoordinate = xCoordinate; 
+		this.verticalCoordinate = yCoordinate;
 	}
 	
 	public int getId() {return cityId;}
@@ -41,39 +33,16 @@ public class City {
 		side1 = x2 - x1; 
 		side2 = y2 - y1; 
 		
-		if(x1 == x2) {
-			return side2;
-		}
-		if(y1 == y2) {
-			return side1;
-		}
-
 		side3 = Math.sqrt( Math.pow(side1, 2) + Math.pow(side2, 2)); 
 		return side3; 
-	}
-	
-	public void addRoad(Road road) {
-		nearbyRoads.add(road);
 	}
 
 	public int getCityId() {
 		return cityId;
 	}
 
-	public ArrayList<Road> getNearbyRoads() {
-		return nearbyRoads;
-	}
-
 	public boolean isVisited() {
 		return visited;
-	}
-
-	public City getLastCity() {
-		return lastCity;
-	}
-
-	public double getDistance() {
-		return distance;
 	}
 
 	public void setCityId(int cityId) {
@@ -87,24 +56,5 @@ public class City {
 	public void setVerticalCoordinate(int verticalCoordinate) {
 		this.verticalCoordinate = verticalCoordinate;
 	}
-
-	public void setNearbyRoads(ArrayList<Road> nearbyRoads) {
-		this.nearbyRoads = nearbyRoads;
-	}
-
-	public void setVisited(boolean visited) {
-		this.visited = visited;
-	}
-
-	public void setLastCity(City lastCity) {
-		this.lastCity = lastCity;
-	}
-
-	public void setDistance(double distance) {
-		this.distance = distance;
-	}
 	
-	public int compareCities(City otherCity) {
-		return Double.compare(distance, otherCity.getDistance());
-	}
 }
