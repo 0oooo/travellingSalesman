@@ -43,22 +43,9 @@ public class Dijkstra {
 		
 		
 		Set<City> visitedCityFromPath = new HashSet<>(existingPath.getVisitedCities()); 
-//		
-//		
-//			System.out.println("Visited cities set: "); 
-//			for(City city : visitedCityFromPath) {
-//				System.out.print( city.getCityId() + " "); 
-//			}
-//			System.out.println("");
-//			
+			
 		Set<City> availableCities = new HashSet<>(allCitiesSet); 
 		availableCities.removeAll(visitedCityFromPath); 
-//			
-//			System.out.println("Available cities set: "); 
-//			for(City city : availableCities) {
-//				System.out.print( city.getCityId() + " "); 
-//			}
-//			System.out.println("");
 			
 		for(City nonVisitedCity : availableCities) {
 //			System.out.println("Non visited city: " + nonVisitedCity.getCityId());
@@ -66,12 +53,6 @@ public class Dijkstra {
 			
 			newPath.addCityInPath(nonVisitedCity);
 			newPath.addCityInVisitedSet(nonVisitedCity);
-			
-//					System.out.println("New Path : "); 
-//					for(City city : newPath.getPath()) {
-//						System.out.print( city.getCityId() + " "); 
-//					}
-//					System.out.println("");
 			
 			double distanceBetweenLastCities = lastCityInPath.calculateDistanceToCity(nonVisitedCity); 
 			newPath.addToGlobalDistance(distanceBetweenLastCities);
@@ -98,57 +79,19 @@ public class Dijkstra {
 		Path pathToCheck = new Path(); 
 		
 		while(!pathToCheck.isCompletedPath()) {
-			if(areAllCitiesIn(pathToCheck)) {
-				System.out.println("Completed path: " + getPathAsString(pathToCheck) + " -> " + pathToCheck.getDistanceFromFirstCity());
-				addBackToFirstCity(pathToCheck); 
-			}else {
-				extendPath(pathToCheck); 
+			if(pathToCheck.getPath() != null && !pathToCheck.getPath().isEmpty()) {
+				if(areAllCitiesIn(pathToCheck)) {
+					addBackToFirstCity(pathToCheck); 
+				}else {
+					extendPath(pathToCheck); 
+				}
 			}
 			pathToCheck = new Path(queueOfPaths.poll());
 		}
 		
-//		//
-//		do {
-//			pathToCheck = new Path(queueOfPaths.poll());
-//			
-//			
-////				System.out.println("Path to check: ");
-////				for(City city : pathToCheck.getPath()) {
-////					System.out.print(city.getCityId() + " ");
-////				}
-////				System.out.println("Is completed? " + pathToCheck.isCompletedPath());
-////				System.out.println("");
-//
-//	
-//			// The TSP needs to go back to its origin city so if all cities are in the path, 
-//			// we need to add back the first city 
-//			if(areAllCitiesIn(pathToCheck)) {
-//				System.out.println("Completed path: " + getPathAsString(pathToCheck) + " -> " + pathToCheck.getDistanceFromFirstCity());
-//				addBackToFirstCity(pathToCheck); 
-//			}else{
-//				extendPath(pathToCheck); 
-//			}
-//			
-//		} while(!pathToCheck.isCompletedPath());
-		
 		bestPath = pathToCheck;  
 	}
 	
-	private void printAllPathsInQueue() {
-		for(Path path : queueOfPaths) {
-			System.out.print("Path: " + getPathAsString(path));
-			System.out.println(" ---> " + path.getDistanceFromFirstCity());
-		}
-	}
-	
-	private void printAllCompletedPathsInQueue() {
-		for(Path path : queueOfPaths) {
-			if(path.isCompletedPath()) {
-				System.out.print("Path: " + getPathAsString(path));
-				System.out.println(" ---> " + path.getDistanceFromFirstCity());
-			}
-		}
-	}
 	
 	public Path getBestPath() {
 		return bestPath; 

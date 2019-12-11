@@ -28,7 +28,7 @@ public class Path {
 		path = new ArrayList<City>(existingPath.getPath());
 		visitedCities = new HashSet<City>(existingPath.getVisitedCities());
 		distanceFromFirstCity = existingPath.getDistanceFromFirstCity(); 
-		completedPath = false; 
+		completedPath = existingPath.isCompletedPath(); 
 	}
 
 	public ArrayList<City> getPath() {
