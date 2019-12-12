@@ -65,6 +65,17 @@ public class TravellingSalesman {
 		dijkstra.printBestPath();
 	}
 	
+	/**
+	 * print the times to read the file, calculate the path with Depth First Search and calculate the path with Dijkstra algorithm
+	 * @param timeToRead
+	 * @param timeToDFS
+	 * @param timeToDijsktra
+	 */
+	public static void printTime(long timeToRead, long timeToDFS, long timeToDijsktra) {
+		System.out.println("It took " + timeToRead + " to read the file, " +
+										timeToDFS + " to calcultate the path with Depth First Search and " + 
+										timeToDijsktra + " to calculate the path with Dijkstra.");
+	}
 	
 	/**
 	 * Main method. 
@@ -72,14 +83,21 @@ public class TravellingSalesman {
 	 */
 	public static void main(String[] args) {
 
+		long startTime = System.nanoTime();
 		
 		if (args.length > 0) {
 
 			readFile(args[0]);
+			long timeAfterReading = System.nanoTime() - startTime; 
 
 			doDFS(cities, numberOfPaths);
+			long timeAfterDFS = System.nanoTime() - timeAfterReading; 
 		
 			doDijkstra(cities);
+			long timeAfterDijkstra = System.nanoTime() - timeAfterDFS; 
+			
+			printTime(timeAfterReading, timeAfterDFS, timeAfterDijkstra);
+			
 			
 		} else {
 			System.out.println("There was no test given.");
