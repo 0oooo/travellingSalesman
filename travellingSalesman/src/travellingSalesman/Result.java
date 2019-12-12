@@ -3,40 +3,40 @@ package travellingSalesman;
 import java.util.ArrayList;
 
 /**
- * @Class Result Object to hold the best path its associated best cost 
+ * @Class Result Object to hold the best path its associated best distance 
  * while we're using recursion in Depth First Search.  
  * @author Camille
  *
  */
 public class Result {
 	
-	private double bestCost; 
+	private double bestDistance; 
 	private ArrayList<City> bestPath; 
 	
 	/**
-	 * Constructor that initialise the best cost to 0 and the best path to be a new array list of cities. 
+	 * Constructor that initialise the best distance to 0 and the best path to be a new array list of cities. 
 	 */
 	public Result() {
-		bestCost = 0; 
+		bestDistance = 0; 
 		bestPath = new ArrayList<City>();
 	}
 	
 	/**
-	 * Constructor that takes an existing cost and existing path
-	 * @param bestCost
+	 * Constructor that takes an existing distance and existing path
+	 * @param bestDistance
 	 * @param bestPath
 	 */
-	public Result(double bestCost, ArrayList<City> bestPath) {
-		this.bestCost = bestCost; 
+	public Result(double bestDistance, ArrayList<City> bestPath) {
+		this.bestDistance = bestDistance; 
 		this.bestPath = bestPath; 
 	}
 
 	/**
 	 * Getter
-	 * @return the best cost
+	 * @return the best distance
 	 */
-	public double getBestCost() {
-		return bestCost;
+	public double getBestDistance() {
+		return bestDistance;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class Result {
 	 * @return a string representing the best path
 	 */
 	public String getBestPathString() {
-		String bestPathString = "Best Path = "; 
+		String bestPathString = ""; 
 		
 		for(City city : bestPath) {
 			bestPathString += city.getCityId() + " ";
@@ -63,11 +63,11 @@ public class Result {
 	}
 	
 	/**
-	 * Print the best path and its associated cost
+	 * Print the best path and its associated distance
 	 */
 	public void printResult() {
 		System.out.println("The best path is " + this.getBestPathString());
-		System.out.println("The best cost is " + this.getBestCost());
+		System.out.println("The best distance is " + this.getBestDistance());
 	}
 
 }

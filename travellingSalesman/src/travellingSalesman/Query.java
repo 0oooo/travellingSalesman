@@ -16,7 +16,7 @@ public class Query {
 	private City[] cities; 
 	private ArrayList<City> path; 
 	private Set<City> visited; 
-	private double overallBest;
+	private double overallBestDistance;
 	
 	/**
 	 * Constructor that initialise the cities to be explored 
@@ -28,7 +28,7 @@ public class Query {
 		this.cities = cities;
 		path = new ArrayList<>();
 		visited = new HashSet<City>();
-		overallBest = 0;
+		overallBestDistance = 0;
 	}
 
 	/**
@@ -57,10 +57,10 @@ public class Query {
 
 	/**
 	 * Getter
-	 * @return the overall best cost between all costs of paths
+	 * @return the overall best distance between all distances of paths
 	 */
-	public double getOverallBest() {
-		return overallBest;
+	public double getOverallBestDistance() {
+		return overallBestDistance;
 	}
 
 	/**
@@ -86,22 +86,22 @@ public class Query {
 
 	/**
 	 * Setter
-	 * @param overallBest assign the overallBest to this new value
+	 * @param overallBestDistance assign the overallBestDistance to this new value
 	 * @return the updated Query
 	 */
-	public Query setOverallBest(double overallBest) {
-		this.overallBest = overallBest;
+	public Query setOverallBestDistance(double overallBestDistance) {
+		this.overallBestDistance = overallBestDistance;
 		return this; 
 	}
 	
 	/**
-	 * Check if the new best cost is better than the overall best cost between all path
-	 * If yes, assign best cost to overall best
-	 * @param bestCost is a new cost from a new path discovered
+	 * Check if the new best distance is better than the overall best distance between all path
+	 * If yes, assign best distance to overall best distance
+	 * @param bestDistance is a new distance from a new path discovered
 	 */
-	public void contestOverallBest(double bestCost){
-		if (this.getOverallBest() == 0 || bestCost < this.getOverallBest()) {
-			this.setOverallBest(bestCost);
+	public void contestOverallBestDistance(double bestDistance){
+		if (this.getOverallBestDistance() == 0 || bestDistance < this.getOverallBestDistance()) {
+			this.setOverallBestDistance(bestDistance);
 		}
 	}
 

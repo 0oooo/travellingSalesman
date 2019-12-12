@@ -65,16 +65,9 @@ public class TravellingSalesman {
 		dijkstra.printBestPath();
 	}
 	
-	/**
-	 * print the times to read the file, calculate the path with Depth First Search and calculate the path with Dijkstra algorithm
-	 * @param timeToRead
-	 * @param timeToDFS
-	 * @param timeToDijsktra
-	 */
-	public static void printTime(long timeToRead, long timeToDFS, long timeToDijsktra) {
-		System.out.println("It took " + timeToRead + " nanoseconds to read the file, ");
-		System.out.println("It took "  + timeToDFS + " nanoseconds to calcultate the path with Depth First Search and "); 
-		System.out.println("It took " + timeToDijsktra + " nanoseconds to calculate the path with Dijkstra.");
+	public static void doRandom(City[] cities) {
+		RandomPathGenerator random = new RandomPathGenerator(cities); 
+		random.printPathAndDistance();
 	}
 	
 	/**
@@ -86,18 +79,32 @@ public class TravellingSalesman {
 		long startTime = System.nanoTime();
 		
 		if (args.length > 0) {
-
+			
 			readFile(args[0]);
+			
 			long timeAfterReading = System.nanoTime() - startTime; 
-
-			doDFS(cities);
-			long timeAfterDFS = System.nanoTime() - timeAfterReading; 
-		
-			doDijkstra(cities);
-			long timeAfterDijkstra = System.nanoTime() - timeAfterDFS; 
+			System.out.println("It took " + timeAfterReading + " nanoseconds to read the file, ");
 			
-			printTime(timeAfterReading, timeAfterDFS, timeAfterDijkstra);
+			if (numberOfCities < 12) {
+				
+				doDFS(cities);
+				long timeAfterDFS = System.nanoTime() - timeAfterReading; 
+				System.out.println("It took " + timeAfterDFS + " nanoseconds to calculate the path with DFS.");
 			
+				doDijkstra(cities);
+				long timeAfterDijkstra = System.nanoTime() - timeAfterDFS;
+				System.out.println("It took " + timeAfterDijkstra + " nanoseconds to calculate the path with Dijkstra.");
+			}
+			else if(numberOfCities < 20) {
+				doDijkstra(cities);
+				long timeAfterDijkstra = System.nanoTime() - timeAfterReading;
+				System.out.println("It took " + timeAfterDijkstra + " nanoseconds to calculate the path with Dijkstra.");
+			}
+			else {
+				doRandom(cities);
+				long timeAfterRandom = System.nanoTime() - timeAfterReading; 
+				System.out.println("It took " + timeAfterRandom + " nanoseconds to generate this path.");
+			}
 			
 		} else {
 			System.out.println("There was no test given.");

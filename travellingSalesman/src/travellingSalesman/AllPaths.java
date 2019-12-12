@@ -11,28 +11,28 @@ import java.util.ArrayList;
 
 public class AllPaths {
 	
-	private ArrayList<Double> costs;
+	private ArrayList<Double> distances;
 	private ArrayList<ArrayList<City>> paths; 
 	
 	/**
-	 * Constructor that initialises an array of cost and an array of array of cities
+	 * Constructor that initialises an array of distances and an array of array of cities
 	 * They should be parallel. For ex the first array of city (or path) 
-	 * has its total cost (or distance) in the cost array at the same index
+	 * has its total distance in the distance array at the same index
 	 * paths[0] = {1, 2, 3}
-	 * costs[0] = 8 
-	 * => path {1, 2, 3} has a cost of 8.  
+	 * distances[0] = 8 
+	 * => path {1, 2, 3} has a distance of 8.  
 	 */
 	public AllPaths() {
-		costs = new ArrayList<Double>();
+		distances = new ArrayList<Double>();
 		paths = new ArrayList<ArrayList<City>>(); 
 	}
 
 	/**
-	 * Getter of the costs
-	 * @return an array list of double, the costs (or total distance) for a path
+	 * Getter of the distances
+	 * @return an array list of double, the distances for a path
 	 */
-	public ArrayList<Double> getAllCosts() {
-		return costs;
+	public ArrayList<Double> getAllDistances() {
+		return distances;
 	}
 	
 	/**
@@ -52,37 +52,37 @@ public class AllPaths {
 	}
 	
 	/**
-	 * Add a cost to the list of cost
-	 * @param cost is a double. It is the total distance between all the cities of a finished path
+	 * Add a distance to the list of distances
+	 * @param distance is a double. It is the total distance between all the cities of a finished path
 	 */
-	public void addCost(double cost) {
-		costs.add(cost);
+	public void addDistance(double distance) {
+		distances.add(distance);
 	}
 	
 	
 	/**
-	 * Constructs a string that will link each path from the list of paths (or lists of cities) to their costs
-	 * @return a string of ALL the paths and associated costs
+	 * Constructs a string that will link each path from the list of paths (or lists of cities) to their distances
+	 * @return a string of ALL the paths and associated distances
 	 */
-	public String getAllPathsWithCost() {
-		String pathsCostString = ""; 
+	public String getAllPathsWithDistances() {
+		String pathsAndDistancesString = ""; 
 		
 		for (int i = 0; i < paths.size(); i++) {
-			pathsCostString += "Path: "; 
+			pathsAndDistancesString += "Path: "; 
 			for (City city : paths.get(i)) {
-				pathsCostString += city.getCityId() + " "; 
+				pathsAndDistancesString += city.getCityId() + " "; 
 			}
-			pathsCostString += " -> Cost = " + costs.get(i) + "\n";
+			pathsAndDistancesString += " -> Distance = " + distances.get(i) + "\n";
 		}
 		
-		return pathsCostString; 
+		return pathsAndDistancesString; 
 	}
 	
 	/**
-	 * Print the string of paths with their associated cost. 
+	 * Print the string of paths with their associated distance. 
 	 */
 	public void printAllPath() {
-		System.out.println(this.getAllPathsWithCost());
+		System.out.println(this.getAllPathsWithDistances());
 	}
 
 }
