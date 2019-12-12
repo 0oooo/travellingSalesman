@@ -42,18 +42,20 @@ public class City {
 	 */
 	public int getVerticalCoordinate() {return verticalCoordinate;}
 	
-	public double calculateDistanceToCity( City city2) {		
-		int x1 = this.getHorizontalCoordinate(); 
-		int y1 = this.getVerticalCoordinate(); 
-		int x2 = city2.getHorizontalCoordinate(); 
-		int y2 = city2.getVerticalCoordinate();
-		double side1, side2, side3; 
+	public double calculateDistanceToCity( City nextCity) {		
+		int xCoordinateThisCity = this.getHorizontalCoordinate(); 
+		int yCoordinateThisCity = this.getVerticalCoordinate(); 
+		int xCoordinateNextCity = nextCity.getHorizontalCoordinate(); 
+		int yCoordinateNextCity = nextCity.getVerticalCoordinate();
 		
-		side1 = x2 - x1; 
-		side2 = y2 - y1; 
+		double horizontalDistance, verticalDistance, distanceBetweenCities; 
 		
-		side3 = Math.sqrt( Math.pow(side1, 2) + Math.pow(side2, 2)); 
-		return side3; 
+		horizontalDistance = xCoordinateNextCity - xCoordinateThisCity; 
+		verticalDistance = yCoordinateNextCity - yCoordinateThisCity; 
+		
+		distanceBetweenCities = Math.sqrt( Math.pow(horizontalDistance, 2) + Math.pow(verticalDistance, 2)); 
+		
+		return distanceBetweenCities; 
 	}
 
 	/**

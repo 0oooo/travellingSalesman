@@ -6,7 +6,11 @@ import java.util.Set;
 import java.util.HashSet;
 
 /**
- * Implementation of the depth first search 
+ * Implementation of the depth first search with recursion
+ * Go through a full path, when it has found one, go backward to explore other path
+ * Keeps track of the state of the exploration with Query Object
+ * Keeps track of the best path and its best cost 
+ * Also keeps track of all paths for debug purposes
  * @author Camille
  *
  */
@@ -14,10 +18,19 @@ public class DFS {
 
 	private AllPaths allPaths; 
 
-	public DFS(int numberOfPaths) {
+	/**
+	 * Constructor
+	 * initiate the all path that will keep track of all the paths discovered by DFS (for debug)
+	 */
+	public DFS() {
 		allPaths = new AllPaths(); 
 	}
 	
+	/**
+	 * Takes a full path and add the first city back to it. 
+	 * @param query: takes the current Query (state of the search) to get the path
+	 * @return a Result with a full path and a full cost associated
+	 */
 	private Result finalisePath(Query query) {
 		ArrayList<City> finalPath = new ArrayList<City>(query.getPath());
 		City firstCity  = query.getPath().get(0);
@@ -31,6 +44,26 @@ public class DFS {
 		return new Result(finalCost, finalPath);
 	}
 	
+	
+	/**
+	 * Calculate all the distance between each cities in a path
+	 * @param path is a list of cities
+	 * @return the total distance (or cost)
+	 */
+	private double calculateCost(ArrayList<City> path) {
+		double cost = 0;
+		for (int city = 1; city < path.size(); city++) {
+			cost += path.get(city).calculateDistanceToCity(path.get(city - 1));
+		}
+		return cost;
+	}
+	
+	/**
+	 * At each iteration, it will take the state of the full cities and remove one from the list
+	 * while adding it to the city to explore
+	 * @param cities is a list of all cities
+	 * @return a list of cities to explore
+	 */
 	private City[] findCitiesToExplore(City[] cities) {
 		City[] citiesToExplore = Arrays.copyOf(cities, cities.length - 1);
 		for(int city = 0; city < citiesToExplore.length; city++) {
@@ -39,6 +72,15 @@ public class DFS {
 		return citiesToExplore;
 	}
 
+	/**
+	 * Core method based on recursion
+	 * Creates a path and 2 sets (visited cities and cities yet to explore). 
+	 * While there is still cities to explore, add them to the path and calculate the distance.   
+	 * @param query contains the state of the current exploration (the path, cities to explore and cities left)
+	 * @return a Result object (that associate the path and its cost). 
+	 * Once a full path has been explore, cities are removed from the visited set, 
+	 * while the recursion has made the cities available again.   
+	 */
 	public Result search(Query query) {
 		
 		double bestCost = 0;
@@ -48,7 +90,8 @@ public class DFS {
 		ArrayList<City> bestPath = new ArrayList<City>();
 		Set<City> citiesSet = new HashSet<City>(Arrays.asList(query.getCities()));
 
-		// The first time we do the search, no city is visited. We initialise 
+		// First iteration of the recursion. There are no city visited yet so we get all the cities
+		// Add the first city to the path and generate our sets used to compare visited cities and cities to explore
 		if (query.getVisited().isEmpty()) {
 			City[] cities = query.getCities(); 
 			path.add(cities[0]);
@@ -88,14 +131,6 @@ public class DFS {
 			path.remove(path.size() - 1);
 		}
 		return new Result(bestCost, bestPath);
-	}
-
-	public double calculateCost(ArrayList<City> path) {
-		double cost = 0;
-		for (int city = 1; city < path.size(); city++) {
-			cost += path.get(city).calculateDistanceToCity(path.get(city - 1));
-		}
-		return cost;
 	}
 	
 	/**
