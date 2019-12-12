@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @Class Query Object used by the Depth First Search 
+ * to keep track of the states of the cities and paths 
+ * while going recursively through the different paths
+ * @author Camille
+ *
+ */
 public class Query {
 	
 	private City[] cities; 
@@ -11,6 +18,10 @@ public class Query {
 	private Set<City> visited; 
 	private double overallBest;
 	
+	/**
+	 * Constructor
+	 * @param cities 
+	 */
 	public Query(City[] cities) {
 		this.cities = cities;
 		path = new ArrayList<>();
@@ -54,6 +65,11 @@ public class Query {
 		return this; 
 	}
 	
-	
+	public void contestOverallBest(double bestCost){
+		if (this.getOverallBest() == 0 || bestCost < this.getOverallBest()) {
+			// found a new best complete path
+			this.setOverallBest(bestCost);
+		}
+	}
 
 }

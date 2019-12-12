@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @class Path object 
+ * @author CC
+ *
+ */
 public class Path {
 	
 	private ArrayList<City> path; 
@@ -43,17 +48,6 @@ public class Path {
 		return distanceFromFirstCity;
 	}
 
-	public void setPath(ArrayList<City> path) {
-		this.path = path;
-	}
-
-	public void setVisitedCities(Set<City> visitedCities) {
-		this.visitedCities = visitedCities;
-	}
-
-	public void setDistanceFromFirstCity(double distanceFromFirstCity) {
-		this.distanceFromFirstCity = distanceFromFirstCity;
-	}
 	
 	public City getFirstCityInPath() {
 		return path.get(0);

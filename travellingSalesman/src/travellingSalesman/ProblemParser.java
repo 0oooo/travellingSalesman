@@ -22,6 +22,14 @@ public class ProblemParser {
 	
 	private Map map;
 	
+	/**
+	 * Constructor is also main method 
+	 * First it counts the lines to know how many cities there is, 
+	 * Then it creates a Map Object
+	 * and for each line of the file, it split the numbers into city id, city x position, city y position 
+	 * and add the city to the map. 
+	 * @param path is the path of the file to read
+	 */
 	public ProblemParser(String path) {
 		try {
 			// To know how long is our array of city, 
@@ -55,6 +63,12 @@ public class ProblemParser {
 	    }
 	}
 	
+	/**
+	 * Extract the data (integers) from the line (string) 
+	 * using regex to get rid of special characters, including space but excluding '-' for negative numbers  
+	 * @param line is a string (line) from the file that is being read 
+	 * @return an array of value, the city id, the city x position and the city y position
+	 */
 	private int[] getDataFromLine(String line) {
 		int[] cityData = new int[3];
 	    
@@ -66,10 +80,14 @@ public class ProblemParser {
 			cityData[data] = Integer.parseInt(matcher.group()); 
 			data++;
 		}
-	    
+	 
 		return cityData;
 	}
 	
+	/**
+	 * Getter
+	 * @return the Map object we created with the cities
+	 */
 	public Map getMap() {
 		if(!map.isEmpty()){
 			return map; 
@@ -77,14 +95,17 @@ public class ProblemParser {
 		return null; 
 	}
 	
+	/**
+	 * To test if the parsing was correct and if each city has its correct coordinates. 
+	 */
 	public void test() {
 		City[] cities = map.getCities(); 
 		for(City city : cities) {
-			int id = city.getId();
-			int x = city.getHorizontalCoordinate();
-			int y = city.getVerticalCoordinate();
+			int cityId = city.getCityId();
+			int xCoordinate = city.getHorizontalCoordinate();
+			int yCoordinate = city.getVerticalCoordinate();
 			
-			System.out.println("City " + id + " - x: " + x + " - y " + y);
+			System.out.println("City " + cityId + " - x: " + xCoordinate + " - y " + yCoordinate);
 		}
 	}
 	

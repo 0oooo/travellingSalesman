@@ -15,81 +15,78 @@ public class DFS {
 	private AllPaths allPaths; 
 
 	public DFS(int numberOfPaths) {
-		allPaths = new AllPaths(numberOfPaths); 
+		allPaths = new AllPaths(); 
 	}
 	
+	private Result finalisePath(Query query) {
+		ArrayList<City> finalPath = new ArrayList<City>(query.getPath());
+		City firstCity  = query.getPath().get(0);
+		finalPath.add(firstCity); 
+		
+		double finalCost = this.calculateCost(finalPath);
+		
+		allPaths.addPath(finalPath);
+		allPaths.addCost(finalCost);
+					
+		return new Result(finalCost, finalPath);
+	}
+	
+	private City[] findCitiesToExplore(City[] cities) {
+		City[] citiesToExplore = Arrays.copyOf(cities, cities.length - 1);
+		for(int city = 0; city < citiesToExplore.length; city++) {
+			citiesToExplore[city] = cities[city + 1];
+		}
+		return citiesToExplore;
+	}
 
 	public Result search(Query query) {
-					
-		Set<City> citiesSet = new HashSet<City>(Arrays.asList(query.getCities()));
-		Set<City> visitedSet = query.getVisited();
+		
+		double bestCost = 0;
 		ArrayList<City> path = query.getPath();
+		Set<City> visitedSet = query.getVisited();
+		Set<City> available = new HashSet<City>();
+		ArrayList<City> bestPath = new ArrayList<City>();
+		Set<City> citiesSet = new HashSet<City>(Arrays.asList(query.getCities()));
 
 		// The first time we do the search, no city is visited. We initialise 
 		if (query.getVisited().isEmpty()) {
 			City[] cities = query.getCities(); 
 			path.add(cities[0]);
 			
-			City[] citiesToExplore = Arrays.copyOf(cities, cities.length - 1);
-			for(int city = 0; city < citiesToExplore.length; city++) {
-				citiesToExplore[city] = cities[city + 1];
-			}
-			
-			query.setCities(citiesToExplore);
-			
-			citiesSet = new HashSet<City>(Arrays.asList(citiesToExplore));
+			citiesSet = new HashSet<City>(Arrays.asList(findCitiesToExplore(cities)));
 			visitedSet = new HashSet<City>(query.getVisited());
 		}
 		
-
-		Set<City> available = new HashSet<City>();
 		available = citiesSet;
 		available.removeAll(visitedSet);
 		
 		if (available.size() == 0) {
-						
-			ArrayList<City> finalPath = new ArrayList<City>(query.getPath());
-			City firstCity  = query.getPath().get(0);
-			finalPath.add(firstCity); 
-			
-			double finalCost = this.calculateCost(finalPath);
-			
-			allPaths.addPath(finalPath);
-			allPaths.addCost(finalCost);
-						
-			return new Result(finalCost, finalPath);
+			return finalisePath(query);
 		}
-
-		double bestCost = 0;
-		ArrayList<City> bestPath = new ArrayList<City>();
 
 		for (City city : available) {
 			
 			visitedSet.add(city);
 			path.add(city);
 			
+			// Recursively call the search with a copy of the query 
 			Query copyQuery = new Query(query.getCities());
 			copyQuery.setOverallBest(0).setPath(path).setVisited(visitedSet);
+			Result currentResult = search(copyQuery); 
 
-			Result currentResult = this.search(copyQuery); //recursion
-
-			// if that path is better, keep it
+			// if the current path is better update the current best and compare to the overall
 			if (bestCost == 0 || currentResult.getBestCost() < bestCost) {
 				bestCost = currentResult.getBestCost();
 				bestPath = currentResult.getBestPath();
 
-				if (query.getOverallBest() == 0 || bestCost < query.getOverallBest()) {
-					// found a new best complete path
-					query.setOverallBest(bestCost);
-				}
+				query.contestOverallBest(bestCost);
 			}
 			
+			// We then go upward the exploratory tree by removing the last cities in path 
+			// That allows to create a new path and compare it to the ones we already explored
 			visitedSet.remove(city);
-			path.remove(path.size() - 1); // remove the last city from the path 
-			
-			
+			path.remove(path.size() - 1);
 		}
-
 		return new Result(bestCost, bestPath);
 	}
 
